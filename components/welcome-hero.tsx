@@ -23,7 +23,7 @@ export function WelcomeHero() {
               drama
             </span>
           </h1>
-          <p className="mt-8 max-w-[700px] px-2 text-center text-xl text-muted-foreground">
+          <p className="mx-auto mt-8 max-w-[700px] px-2 text-center text-xl text-muted-foreground">
             Connect, Communicate, and Create Memorable Moments with Llama Video
             Calls
           </p>
