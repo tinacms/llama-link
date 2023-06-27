@@ -17,8 +17,10 @@ export function WelcomeHero() {
       </div>
       <div className="relative flex flex-col items-center gap-2 py-24">
         <div className="px-4 py-8 text-center">
-          <h1 className="text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
-            Talk to llama, Share the{" "}
+          <h1 className="mx-auto text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
+            Talk to llama,
+            <br />
+            Share the{" "}
             <span className="bg-gradient-to-b from-blue-300 to-pink-600 bg-clip-text text-transparent">
               drama
             </span>
