@@ -1,48 +1,68 @@
 import Link from "next/link"
+import { PageBlocksWelcomeHero } from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
+import { tinaField } from "tinacms/dist/react"
+import { TinaMarkdown } from "tinacms/dist/rich-text"
 
 import { Button } from "@/components/ui/button"
 import { IconList } from "@/components/icons"
 
-const links = [
-  { label: "Get started", link: "/", style: "button" },
-  { label: "Learn more", link: "/learn", style: "simple" },
-]
-
-export function WelcomeHero() {
+export function WelcomeHero(props: PageBlocksWelcomeHero) {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 mx-auto h-full w-full max-w-[1600px]">
         <IconWrapper />
       </div>
       <div className="relative flex flex-col items-center gap-2 py-24">
-        <div className="px-4 py-8 text-center">
-          <h1 className="mx-auto text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl">
-            Talk to llama,
-            <br />
-            Share the{" "}
-            <span className="bg-gradient-to-b from-blue-300 to-pink-600 bg-clip-text text-transparent">
-              drama
-            </span>
-          </h1>
-          <p className="mx-auto mt-8 max-w-[700px] px-2 text-center text-xl text-muted-foreground">
-            Connect, Communicate, and Create Memorable Moments with Llama Video
-            Calls
-          </p>
+        <div
+          className="px-4 py-8 text-center"
+          data-tina-field={tinaField(props, "message")}
+        >
+          <TinaMarkdown
+            content={props.message}
+            components={{
+              h1: (props) => (
+                <h1
+                  className="mx-auto text-5xl font-extrabold leading-tight tracking-tighter text-primary md:text-7xl"
+                  {...props}
+                />
+              ),
+              bold: (props) => (
+                <span
+                  className="bg-gradient-to-b from-blue-300 to-pink-600 bg-clip-text text-transparent"
+                  {...props}
+                />
+              ),
+              p: (props) => (
+                <p
+                  className="mx-auto mt-8 max-w-[700px] px-2 text-center text-xl text-muted-foreground"
+                  {...props}
+                />
+              ),
+            }}
+          />
         </div>
         <div className="flex gap-5 py-12">
-          {links?.map((link) => {
+          {props.links?.map((link) => {
             switch (link?.style) {
               case "button": {
                 return (
-                  <Link key={link.link} href={link.link || ""}>
+                  <Link
+                    data-tina-field={tinaField(link, "label")}
+                    key={link.label}
+                    href={link.link || ""}
+                  >
                     <Button size="lg">{link.label}</Button>
                   </Link>
                 )
               }
               case "simple": {
                 return (
-                  <Link key={link.link} href={link?.link || ""}>
+                  <Link
+                    data-tina-field={tinaField(link, "label")}
+                    key={link.label}
+                    href={link?.link || ""}
+                  >
                     <Button size="lg" variant={"ghost"}>
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4" />
