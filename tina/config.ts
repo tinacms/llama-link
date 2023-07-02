@@ -1,5 +1,8 @@
 import { defineConfig } from "tinacms"
 
+import { FeaturedIcons } from "../components/icons"
+import { IconSelector } from "./icon-select"
+
 export default defineConfig({
   branch: "",
   clientId: "",
@@ -51,6 +54,51 @@ export default defineConfig({
                         type: "string",
                         name: "style",
                         options: ["simple", "button"],
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                name: "featureList",
+                label: "Feature List",
+                fields: [
+                  { name: "byline", type: "string" },
+                  {
+                    name: "message",
+                    type: "rich-text",
+                  },
+                  {
+                    name: "features",
+                    label: "Features",
+                    type: "object",
+                    list: true,
+                    ui: {
+                      itemProps: (item) => {
+                        return { label: item.label }
+                      },
+                      defaultItem: {
+                        icon: Object.keys(FeaturedIcons)[0],
+                        label: "Llama Feature",
+                        description: "This is a feature",
+                      },
+                    },
+                    fields: [
+                      {
+                        type: "string",
+                        name: "icon",
+                        options: Object.keys(FeaturedIcons),
+                        ui: {
+                          component: IconSelector,
+                        },
+                      },
+                      { type: "string", name: "label" },
+                      {
+                        type: "string",
+                        name: "description",
+                        ui: {
+                          component: "textarea",
+                        },
                       },
                     ],
                   },

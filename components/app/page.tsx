@@ -26,9 +26,11 @@ export function PageComponent(props: {
           case "PageBlocksWelcomeHero": {
             return <WelcomeHero key={i} {...block} />
           }
+          case "PageBlocksFeatureList": {
+            return <FeatureList key={i} {...block} />
+          }
         }
       })}
-      <FeatureList />
       <FeaturedReading />
       <Footer />
     </>
