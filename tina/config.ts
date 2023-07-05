@@ -11,6 +11,12 @@ export default defineConfig({
     publicFolder: "public",
     outputFolder: "admin",
   },
+  media: {
+    tina: {
+      publicFolder: "public",
+      mediaRoot: "",
+    },
+  },
   schema: {
     collections: [
       {
@@ -104,7 +110,80 @@ export default defineConfig({
                   },
                 ],
               },
+              {
+                name: "featuredReading",
+                label: "Featured Reading",
+                fields: [
+                  {
+                    name: "label",
+                    label: "Label",
+                    type: "string",
+                  },
+                  {
+                    name: "featuredPost",
+                    label: "Featured Post",
+                    type: "reference",
+                    collections: ["post"],
+                  },
+                ],
+              },
             ],
+          },
+        ],
+      },
+      {
+        name: "post",
+        label: "Post",
+        path: "content/posts",
+        format: "md",
+        fields: [
+          {
+            name: "title",
+            label: "Title",
+            type: "string",
+          },
+          {
+            name: "author",
+            label: "Author",
+            type: "reference",
+            collections: ["author"],
+          },
+          {
+            name: "image",
+            label: "Image",
+            type: "image",
+          },
+          {
+            name: "description",
+            label: "Description",
+            type: "string",
+            ui: {
+              component: "textarea",
+            },
+          },
+          {
+            name: "body",
+            label: "Body",
+            type: "rich-text",
+            isBody: true,
+          },
+        ],
+      },
+      {
+        name: "author",
+        label: "Author",
+        path: "content/authors",
+        format: "md",
+        fields: [
+          {
+            name: "name",
+            label: "Name",
+            type: "string",
+          },
+          {
+            name: "image",
+            label: "Image",
+            type: "image",
           },
         ],
       },

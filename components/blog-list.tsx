@@ -1,6 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
+import {
+  PageBlocksFeaturedReading,
+  PostConnectionQuery,
+  PostQuery,
+} from "@/tina/__generated__/types"
 import { ArrowRight } from "lucide-react"
+import { tinaField } from "tinacms/dist/react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -41,57 +47,16 @@ const authors = [
   },
 ]
 
-export const posts = [
-  {
-    title: "Introducing LlamaLink Social",
-    slug: "introducing-llama-link",
-    image: "/ssspot.svg",
-    description:
-      "We believe that communication should be fun, engaging, and memorable. With LlamaLink, you can enjoy video calls that not only serve their purpose but also bring a smile to your face and create lasting memories. Join us on this llama-filled adventure and experience video calling like never before.",
-    author: authors[3],
-  },
-  {
-    title: "Lorem Ipsum Dolor Met",
-    slug: "inspired-interface",
-    image: "/cccoil.svg",
-    description:
-      "Llama-Inspired Interface: We've reimagined the video call interface to incorporate playful llama elements. From llama-themed backgrounds and stickers to llama-inspired emoticons, every call becomes a delightful experience that sparks joy.",
-    author: authors[2],
-  },
-  {
-    title: "Lorem Ipsum Dolor Met",
-    slug: "seamless-connection",
-    image: "/gggyrate.svg",
-    description:
-      "Seamless Connection: LlamaLink ensures crystal-clear audio and high-definition video quality, providing a seamless connection between users. Say goodbye to buffering and dropped calls, and immerse yourself in smooth, uninterrupted conversations",
-    author: authors[3],
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam metus, condimentum ut bibendum",
-    slug: "magic-filters",
-    image: "/ttten.svg",
-    description:
-      "Llama Magic Filters: Add a touch of magic to your video calls with our unique Llama Magic Filters. Transform yourself into a regal llama, a cute baby llama, or even a rainbow llama, bringing fun and laughter to your conversations.",
-    author: authors[4],
-  },
-  {
-    title: "Duis accumsan justo diam, eu convallis",
-    image: "/rrreflection.svg",
-    slug: "call-themes",
-    description:
-      "Llama Call Themes: Express your personality and set the mood with our range of Llama Call Themes. Whether it's a professional meeting, a virtual party, or a casual catch-up, choose from a variety of llama-themed backgrounds and animations to enhance your video calls",
-    author: authors[5],
-  },
-]
-
-export function FeaturedReading() {
+export function FeaturedReading(props: PageBlocksFeaturedReading) {
   return (
     <div className="relative">
       <div className="absolute inset-0 overflow-hidden">
         <Wavy className="absolute inset-0 opacity-10" />
       </div>
-      <div className="relative -my-12 mx-auto aspect-square max-w-7xl rounded-lg py-24 shadow-lg shadow-muted sm:aspect-video sm:py-32">
+      <div
+        data-tina-field={tinaField(props, "featuredPost")}
+        className="relative -my-12 mx-auto aspect-square max-w-7xl rounded-lg py-24 shadow-lg shadow-muted sm:aspect-video sm:py-32"
+      >
         <div className="absolute inset-0 rounded-lg bg-card p-8">
           <div className="absolute inset-5 overflow-hidden rounded-md bg-blend-multiply">
             <Image
@@ -112,19 +77,22 @@ export function FeaturedReading() {
               fill={true}
               className="object-cover"
               alt={""}
-              src={"/authors/author-6.jpeg"}
+              src={props.featuredPost?.author?.image || ""}
             />
           </div>
         </div>
         <div className="absolute bottom-5 left-5 p-6 sm:w-2/3 sm:p-12 md:w-1/2">
-          <h2 className="md:text-md relative mt-4 inline-block border border-white px-2 py-1 text-sm font-bold uppercase tracking-widest text-white">
-            Latest
+          <h2
+            data-tina-field={tinaField(props, "label")}
+            className="md:text-md relative mt-4 inline-block border border-white px-2 py-1 text-sm font-bold uppercase tracking-widest text-white"
+          >
+            {props.label}
           </h2>
           <h2 className="relative mt-4 text-3xl font-bold text-white md:text-3xl xl:text-5xl">
-            Duis accumsan justo diam, eu convallis
+            {props.featuredPost?.title}
           </h2>
           <p className="mt-4 hidden text-lg leading-8 text-white lg:block">
-            {`Llama Call Themes: Express your personality and set the mood with our range of Llama Call Themes. Whether it's a professional meeting, a virtual party, or a casual catch-up, choose from a variety of llama-themed backgrounds and animations to enhance your video calls`}
+            {props.featuredPost?.description}
           </p>
           <div className="mt-3 flex">
             <Link
@@ -141,23 +109,32 @@ export function FeaturedReading() {
     </div>
   )
 }
-export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
-  const post = posts[0]
+export function FeaturedReadingAlt({
+  post,
+  hasLink,
+}: {
+  post: PostQuery["post"]
+  hasLink?: boolean
+}) {
   return (
     <div className="grid-rows-12 mx-auto grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md lg:grid-cols-12 lg:grid-rows-1">
       <div className="relative col-span-6  px-4 py-8 sm:px-12 sm:py-16 lg:col-span-5 lg:min-h-[400px]">
         <h2
           id="featured-post"
           className="relative text-2xl font-bold text-card-foreground md:text-3xl"
+          data-tina-field={tinaField(post, "title")}
         >
           <span className="relative">{post.title}</span>
         </h2>
-        <p className="mt-8 text-lg leading-8 text-primary">
+        <p
+          data-tina-field={tinaField(post, "description")}
+          className="mt-8 text-lg leading-8 text-primary"
+        >
           {post.description}
         </p>
         {hasLink ? (
           <Link
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post._sys.breadcrumbs.join("/")}`}
             className="mt-8 inline-flex w-16 items-center justify-between text-base font-semibold leading-6 text-card-foreground"
           >
             <span className="">Read</span>
@@ -170,18 +147,24 @@ export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
           <Wavy className="absolute bottom-0 right-0 h-[700px] w-[700px] translate-x-1/2 translate-y-1/2 -rotate-45 opacity-10" />
         </div>
         <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center lg:bottom-16 lg:left-auto lg:right-0 lg:translate-x-1/2">
-          <div className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card sm:h-24 sm:w-24 md:ring-8">
+          <div
+            data-tina-field={tinaField(post, "author")}
+            className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card sm:h-24 sm:w-24 md:ring-8"
+          >
             <Image
               fill={true}
               sizes="200px"
               className="object-cover"
               alt={post.author?.name || ""}
-              src={post.author?.imageUrl || ""}
+              src={post.author?.image || ""}
             />
           </div>
         </div>
       </div>
-      <div className="relative col-span-6 aspect-[4/2] lg:col-span-7 lg:aspect-auto">
+      <div
+        data-tina-field={tinaField(post, "image")}
+        className="relative col-span-6 aspect-[4/2] lg:col-span-7 lg:aspect-auto"
+      >
         <Image
           fill={true}
           className="object-cover"
@@ -193,38 +176,56 @@ export function FeaturedReadingAlt({ hasLink }: { hasLink?: boolean }) {
   )
 }
 
-export function BlogList() {
+export function BlogList(props: PostConnectionQuery) {
+  const posts = props.postConnection.edges
+  const featuredPost = posts && posts[0]?.node
+  if (!featuredPost) {
+    return null
+  }
   return (
     <>
-      <FeaturedReadingAlt hasLink={true} />
+      <FeaturedReadingAlt hasLink={true} post={featuredPost} />
       <div className="grid gap-8 bg-muted lg:grid-cols-3">
         <div className="order-1 col-span-2 grid grid-cols-1 gap-8 bg-muted lg:-order-1 lg:grid-cols-2">
           {posts
             .filter((_, i) => i !== 0)
-            .map((post, i) => {
+            .map((edge, i) => {
+              const post = edge?.node
+              if (!post) {
+                return null
+              }
               return (
                 <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
+                  key={post._sys.breadcrumbs.join("/")}
+                  href={`/blog/${post._sys.breadcrumbs.join("/")}`}
                   className={`grid grid-cols-1 overflow-hidden rounded-lg bg-card shadow-md`}
                 >
                   <div className="relative col-span-1 px-8 pb-16 pt-8">
                     <h2
+                      data-tina-field={tinaField(post, "title")}
                       id="featured-post"
                       className="relative line-clamp-2 text-2xl font-bold text-card-foreground"
                     >
                       {post.title}
                     </h2>
-                    <p className="mt-8 line-clamp-2 text-lg leading-8 text-primary">
+                    <p
+                      data-tina-field={tinaField(post, "description")}
+                      className="mt-8 line-clamp-2 text-lg leading-8 text-primary"
+                    >
                       {post.description}
                     </p>
                     <div className="absolute inset-x-0 bottom-0 z-10 flex translate-y-1/2 justify-center">
-                      <div className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card md:ring-8">
+                      <div
+                        data-tina-field={
+                          post.author && tinaField(post.author, "image")
+                        }
+                        className="relative h-20 w-20 overflow-hidden rounded-full ring-4 ring-card md:ring-8"
+                      >
                         <Image
                           fill={true}
                           className="object-cover"
                           alt=""
-                          src={post.author?.imageUrl || ""}
+                          src={post.author?.image || ""}
                         />
                       </div>
                     </div>

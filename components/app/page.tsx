@@ -29,9 +29,11 @@ export function PageComponent(props: {
           case "PageBlocksFeatureList": {
             return <FeatureList key={i} {...block} />
           }
+          case "PageBlocksFeaturedReading": {
+            return <FeaturedReading key={i} {...block} />
+          }
         }
       })}
-      <FeaturedReading />
       <Footer />
     </>
   )
