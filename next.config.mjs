@@ -4,6 +4,14 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "assets.tina.io",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
