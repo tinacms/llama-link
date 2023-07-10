@@ -21,7 +21,7 @@ export default defineConfig({
     collections: [
       {
         name: "page",
-        label: "Page",
+        label: "Page!",
         path: "content/pages",
         format: "md",
         ui: {
