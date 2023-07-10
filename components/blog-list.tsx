@@ -47,7 +47,14 @@ const authors = [
   },
 ]
 
-export function FeaturedReading(props: PageBlocksFeaturedReading) {
+type FeaturedReading = Omit<PageBlocksFeaturedReading, "featuredPost"> & {
+  featuredPost?: Omit<
+    NonNullable<PageBlocksFeaturedReading["featuredPost"]>,
+    "_values"
+  >
+}
+
+export function FeaturedReading(props: FeaturedReading) {
   return (
     <div className="relative">
       <div className="absolute inset-0 overflow-hidden">
