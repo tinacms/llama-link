@@ -1,6 +1,8 @@
 import * as React from "react"
 import Link from "next/link"
+import { PageAndNavQuery } from "@/tina/__generated__/types"
 import { Menu } from "lucide-react"
+import { tinaField } from "tinacms/dist/react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
@@ -21,7 +23,7 @@ const social = [
   { handle: "llama-link", platform: "github" },
 ]
 
-export function SiteHeader() {
+export function SiteHeader(props: PageAndNavQuery["nav"]) {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -35,9 +37,13 @@ export function SiteHeader() {
 
           <div className="hidden md:block">
             <ul className="flex items-center gap-3 p-6">
-              {links?.map((link) => {
+              {props.links?.map((link) => {
                 return (
-                  <li key={link?.link} className="row-span-3">
+                  <li
+                    data-tina-field={link && tinaField(link, "label")}
+                    key={link?.link}
+                    className="row-span-3"
+                  >
                     <Link href={link?.link || ""}>
                       <Button variant="ghost">{link?.label}</Button>
                     </Link>

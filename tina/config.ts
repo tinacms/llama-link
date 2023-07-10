@@ -187,6 +187,36 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: "nav",
+        label: "Nav",
+        path: "content/nav",
+        format: "md",
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+          global: true,
+        },
+        fields: [
+          {
+            name: "links",
+            label: "Links",
+            type: "object",
+            list: true,
+            ui: {
+              itemProps: (item) => {
+                return { label: item.label }
+              },
+            },
+            fields: [
+              { type: "string", name: "label", label: "Label" },
+              { type: "string", name: "link", label: "Link" },
+            ],
+          },
+        ],
+      },
     ],
   },
 })

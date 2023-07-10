@@ -1,16 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import { PostQuery } from "@/tina/__generated__/types"
+import { PostAndNavQuery, PostQuery } from "@/tina/__generated__/types"
 import { tinaField, useTina } from "tinacms/dist/react"
 import { TinaMarkdown } from "tinacms/dist/rich-text"
 
-import { FeaturedReadingAlt, posts } from "@/components/blog-list"
+import { FeaturedReadingAlt } from "@/components/blog-list"
 import { Footer } from "@/components/footer"
 import { SiteHeader } from "@/components/site-header"
 
 export function BlogPageComponent(props: {
-  data: PostQuery
+  data: PostAndNavQuery
   variables: {
     relativePath: string
   }
@@ -19,7 +19,7 @@ export function BlogPageComponent(props: {
   const { data } = useTina(props)
   return (
     <>
-      <SiteHeader />
+      <SiteHeader {...props.data.nav} />
       <div className="relative bg-muted">
         <div className="container relative z-10 flex flex-col py-8">
           <FeaturedReadingAlt post={data.post} />
