@@ -49,7 +49,8 @@ blocks:
           extraordinary moments.
     _template: featureList
   - label: Announcement
-    featuredPost: content/posts/introducing-llama-link.md
+    featuredPost: content/posts/call-themes.md
     _template: featuredReading
 ---
+
 
