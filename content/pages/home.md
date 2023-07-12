@@ -48,10 +48,12 @@ blocks:
           the charm of llamas, transforming ordinary conversations into
           extraordinary moments.
     _template: featureList
-  - label: Announcementasdfadasdfa
-    featuredPost: content/posts/inspired-interface.md
+  - label: Announcement
+    featuredPost: content/posts/call-themes.md
     _template: featuredReading
 ---
+
+
 
 
 

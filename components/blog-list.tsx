@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
+  PageAndNavQuery,
   PageBlocksFeaturedReading,
   PostConnectionQuery,
   PostQuery,
@@ -53,8 +54,11 @@ type FeaturedReading = Omit<PageBlocksFeaturedReading, "featuredPost"> & {
     "_values"
   >
 }
+type Block = NonNullable<NonNullable<PageAndNavQuery["page"]["blocks"]>[number]>
 
-export function FeaturedReading(props: FeaturedReading) {
+type FeatureBlock = Extract<Block, { __typename: "PageBlocksFeaturedReading" }>
+
+export function FeaturedReading(props: FeatureBlock) {
   return (
     <div className="relative">
       <div className="absolute inset-0 overflow-hidden">
@@ -70,7 +74,7 @@ export function FeaturedReading(props: FeaturedReading) {
               fill={true}
               className="object-cover"
               alt=""
-              src={"/ssspot.svg"}
+              src={props.featuredPost?.image || ""}
             />
             <div
               className={`absolute inset-0 bg-gray-600 opacity-30 mix-blend-multiply dark:opacity-40`}
@@ -103,7 +107,7 @@ export function FeaturedReading(props: FeaturedReading) {
           </p>
           <div className="mt-3 flex">
             <Link
-              href={``}
+              href={`/blog/${props.featuredPost?._sys.breadcrumbs.join("/")}`}
               className="text-sm font-semibold leading-6 text-white"
               aria-describedby="featured-post"
             >

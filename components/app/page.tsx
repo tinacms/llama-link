@@ -30,7 +30,6 @@ export function PageComponent(props: {
             return <FeatureList key={i} {...block} />
           }
           case "PageBlocksFeaturedReading": {
-            // @ts-ignore
             return <FeaturedReading key={i} {...block} />
           }
         }
