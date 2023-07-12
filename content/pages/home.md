@@ -1,7 +1,7 @@
 ---
 title: Hello
 blocks:
-  - message: "# Talk to llama,\n\n# Share the\_**drama!**\n\nTest\n\nConnect, Communicate, and Create Memorable Moments with Llama Video Calls\n"
+  - message: "# Talk to llama,\n\n# Share the\_**drama!**\n\nConnect, Communicate, and Create Memorable Moments with Llama Video Calls\n"
     links:
       - link: /
         label: Get Started
@@ -52,5 +52,6 @@ blocks:
     featuredPost: content/posts/call-themes.md
     _template: featuredReading
 ---
+
 
 
