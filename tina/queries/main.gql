@@ -4,6 +4,7 @@ query pageAndNav($relativePath: String!) {
       _sys {
         filename
         basename
+        hasReferences
         breadcrumbs
         path
         relativePath
@@ -18,6 +19,7 @@ query pageAndNav($relativePath: String!) {
       _sys {
         filename
         basename
+        hasReferences
         breadcrumbs
         path
         relativePath
@@ -34,6 +36,7 @@ query postAndNav($relativePath: String!) {
       _sys {
         filename
         basename
+        hasReferences
         breadcrumbs
         path
         relativePath
@@ -48,6 +51,7 @@ query postAndNav($relativePath: String!) {
       _sys {
         filename
         basename
+        hasReferences
         breadcrumbs
         path
         relativePath
@@ -89,6 +93,7 @@ query postAndNavConnection(
           _sys {
             filename
             basename
+            hasReferences
             breadcrumbs
             path
             relativePath
@@ -105,6 +110,7 @@ query postAndNavConnection(
       _sys {
         filename
         basename
+        hasReferences
         breadcrumbs
         path
         relativePath
